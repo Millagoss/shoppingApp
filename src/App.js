@@ -2,14 +2,14 @@ import React from 'react';
 import Home from './Pages/Home/Home';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './Pages/Navigation/NavBarComponent';
-import SignIn from './Pages/SignIn/SignIn';
+import Authentication from './Pages/authentication/authentication.page';
 
 const App = () => {
   return (
     <Routes>
       <Route path='/' element={<NavBar />}>
         <Route path='/' element={<Home />} />
-        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/authentication' element={<Authentication />} />
       </Route>
     </Routes>
   );
