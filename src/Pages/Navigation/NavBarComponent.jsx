@@ -1,8 +1,13 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { ReactComponent as CrwnLogo } from '../../assets/083 crown.svg';
+import { useGlobalUserContextHook } from '../../contexts/userContext';
 import './navigation.scss';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
+
 const NavBar = () => {
+  const { currentUser } = useGlobalUserContextHook();
+
   return (
     <>
       <div className='navigation'>
@@ -15,9 +20,15 @@ const NavBar = () => {
           <Link className='nav-link' to='./'>
             Shop
           </Link>
-          <Link className='nav-link' to='./authentication'>
-            Sign in
-          </Link>
+          {currentUser ? (
+            <span className='nav-link' onClick={signOutUser}>
+              SIGN OUT
+            </span>
+          ) : (
+            <Link className='nav-link' to='./authentication'>
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
       <Outlet />

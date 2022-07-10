@@ -13,7 +13,7 @@ const formField = {
   password: '',
 };
 
-const SignInComponent = ({ authGoogleUser }) => {
+const SignInComponent = () => {
   const [textField, setTextField] = useState(formField);
   const { email, password } = textField;
 
@@ -21,11 +21,10 @@ const SignInComponent = ({ authGoogleUser }) => {
     e.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password':
@@ -49,8 +48,7 @@ const SignInComponent = ({ authGoogleUser }) => {
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    const addUserToDb = await createUserDocument(user);
+    await signInWithGooglePopup();
   };
   return (
     <div className='sign-up-container' style={{ width: '28rem' }}>
