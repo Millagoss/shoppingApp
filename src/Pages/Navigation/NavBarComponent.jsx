@@ -4,9 +4,14 @@ import { ReactComponent as CrwnLogo } from '../../assets/083 crown.svg';
 import { useGlobalUserContextHook } from '../../contexts/userContext';
 import './navigation.scss';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
+import CartIcon from '../../components/cart-icon/cart-icon.component';
+import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
+import { useGlobalCartStateContextHook } from '../../contexts/cart-item-context';
 
 const NavBar = () => {
   const { currentUser } = useGlobalUserContextHook();
+  const { isCartDropdownOpen, setIsCartDropdownOpen } =
+    useGlobalCartStateContextHook();
 
   return (
     <>
@@ -17,7 +22,7 @@ const NavBar = () => {
           </Link>
         </div>
         <div className='nav-links-container'>
-          <Link className='nav-link' to='./'>
+          <Link className='nav-link' to='./shop'>
             Shop
           </Link>
           {currentUser ? (
@@ -29,7 +34,11 @@ const NavBar = () => {
               Sign In
             </Link>
           )}
+          <div onClick={() => setIsCartDropdownOpen(!isCartDropdownOpen)}>
+            <CartIcon />
+          </div>
         </div>
+        {isCartDropdownOpen && <CartDropdown />}
       </div>
       <Outlet />
     </>

@@ -15,7 +15,7 @@ export const UserContextProvider = ({ children }) => {
       if (user) {
         createUserDocument(user);
       }
-      console.log(user);
+      // console.log(user);
       setCurrentUser(user);
     });
     return unsubscribe;
