@@ -30,7 +30,7 @@ provider.setCustomParameters({
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
-// user data database
+// userData database
 const userDb = getFirestore();
 
 export const createUserDocument = async (userAuth, additionalInfo = {}) => {
@@ -40,7 +40,7 @@ export const createUserDocument = async (userAuth, additionalInfo = {}) => {
   const docRef = doc(userDb, 'users', uid);
 
   const userSnapshot = await getDoc(docRef);
-  console.log(userSnapshot.exists());
+  // console.log(userSnapshot.exists());
   if (!userSnapshot.exists()) {
     try {
       await setDoc(docRef, {

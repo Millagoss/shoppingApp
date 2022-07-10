@@ -3,7 +3,6 @@ import './sign-in-component.scss';
 import CustomBtn from '../Button/CustomBtn';
 import FormInput from '../form-input/formInput';
 import {
-  createUserDocument,
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from '../../utils/firebase/firebase.utils';
