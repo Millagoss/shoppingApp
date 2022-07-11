@@ -1,7 +1,11 @@
 import './product-card.scss';
 import CustomBtn from '../Button/CustomBtn';
+import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
 
-const ProductCard = ({ id, name, imageUrl, price }) => {
+const ProductCard = ({ product }) => {
+  const { id, name, imageUrl, price } = product;
+  const { addItemToCart } = useGlobalAddItemToCartContext();
+
   return (
     <div className='product-card-container'>
       <img src={imageUrl} alt='' />
@@ -10,7 +14,9 @@ const ProductCard = ({ id, name, imageUrl, price }) => {
         <span className='price'>{price}</span>
       </div>
 
-      <CustomBtn buttonType='inverted'>Add to cart </CustomBtn>
+      <CustomBtn onClick={() => addItemToCart(product)} buttonType='inverted'>
+        Add to cart
+      </CustomBtn>
     </div>
   );
 };

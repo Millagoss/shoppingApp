@@ -6,8 +6,8 @@ import App from './App.js';
 import './index.scss';
 import { UserContextProvider } from './contexts/userContext.jsx';
 import { ShopProductsContextProvider } from './contexts/shopProductsContext.jsx';
-import { CartStateContextProvider } from './contexts/cart-item-context.jsx';
-
+import { CartStateContextProvider } from './contexts/cart-dropdown-context.jsx';
+import { AddItemToCartContextProvider } from './contexts/add-cart-item-context.jsx';
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
@@ -16,9 +16,11 @@ root.render(
     <BrowserRouter>
       <UserContextProvider>
         <ShopProductsContextProvider>
-          <CartStateContextProvider>
-            <App />
-          </CartStateContextProvider>
+          <AddItemToCartContextProvider>
+            <CartStateContextProvider>
+              <App />
+            </CartStateContextProvider>
+          </AddItemToCartContextProvider>
         </ShopProductsContextProvider>
       </UserContextProvider>
     </BrowserRouter>

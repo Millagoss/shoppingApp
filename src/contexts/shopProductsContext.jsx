@@ -10,7 +10,7 @@ export const ShopProductsContextProvider = ({ children }) => {
     setShopProducts(shopData);
   }, []);
 
-  const value = { shopData };
+  const value = { shopProducts, setShopProducts };
   return (
     <shopProductsContext.Provider value={value}>
       {children}
