@@ -5,6 +5,19 @@ import './cart-dropdown.style.scss';
 const CartDropdown = () => {
   const { itemsInCart } = useGlobalAddItemToCartContext();
 
+  if (itemsInCart.length === 0) {
+    return (
+      <div className='cart-dropdown-container'>
+        <div
+          className='cart-items'
+          style={{ justifyContent: 'center', alignItems: 'center' }}
+        >
+          <h3>cart is empty</h3>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='cart-dropdown-container'>
       <div className='cart-items'>
@@ -23,6 +36,7 @@ const CartDropdown = () => {
           );
         })}
       </div>
+
       <CustomBtn>GO TO CHECKOUT</CustomBtn>
     </div>
   );
