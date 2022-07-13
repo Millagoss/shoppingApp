@@ -1,9 +1,15 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
 import CustomBtn from '../Button/CustomBtn';
 import './cart-dropdown.style.scss';
 
 const CartDropdown = () => {
   const { itemsInCart } = useGlobalAddItemToCartContext();
+  const navigtion = useNavigate();
+
+  const handleClick = () => {
+    navigtion('/checkout');
+  };
 
   if (itemsInCart.length === 0) {
     return (
@@ -36,8 +42,9 @@ const CartDropdown = () => {
           );
         })}
       </div>
-
-      <CustomBtn>GO TO CHECKOUT</CustomBtn>
+      {/* <Link to='/checkout'> */}
+      <CustomBtn onClick={handleClick}>GO TO CHECKOUT</CustomBtn>
+      {/* </Link> */}
     </div>
   );
 };

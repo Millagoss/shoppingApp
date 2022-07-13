@@ -49,6 +49,12 @@
   margin-bottom: 15px;
   border-radius: 5px;
   box-shadow: 0 5px 15px rgb(145, 110, 145);
+  transition: all 0.5s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 12px rgb(234, 26, 234);
+  }
   img {
     width: 30%;
     border-radius: 5px;

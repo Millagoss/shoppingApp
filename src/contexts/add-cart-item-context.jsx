@@ -6,6 +6,7 @@ const addItemToCartContext = React.createContext();
 export const AddItemToCartContextProvider = ({ children }) => {
   const [itemsInCart, setItemsInCart] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
     const count = itemsInCart.reduce((total, item) => {
@@ -13,6 +14,14 @@ export const AddItemToCartContextProvider = ({ children }) => {
       return total;
     }, 0);
     setCartCount(count);
+  }, [itemsInCart]);
+
+  useEffect(() => {
+    setCartTotal(
+      itemsInCart.reduce((total, curr) => {
+        return total + curr.quantity * curr.price;
+      }, 0)
+    );
   }, [itemsInCart]);
 
   const addItemToCart = (product) => {
@@ -32,7 +41,44 @@ export const AddItemToCartContextProvider = ({ children }) => {
     }
   };
 
-  const value = { itemsInCart, setItemsInCart, addItemToCart, cartCount };
+  const incrementQuantity = (productToIncrement) => {
+    addItemToCart(productToIncrement);
+  };
+  const decrementQuantity = (productToDecrement) => {
+    if (productToDecrement.quantity === 1) {
+      const filteredItems = itemsInCart.filter(
+        (item) => item.id !== productToDecrement.id
+      );
+      setItemsInCart(filteredItems);
+      return;
+    }
+
+    const newItems = itemsInCart.map((item) => {
+      if (item.id === productToDecrement.id) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    setItemsInCart(newItems);
+  };
+
+  const clearCartItem = (productToClear) => {
+    const newCartItems = itemsInCart.filter(
+      (product) => product.id !== productToClear.id
+    );
+    setItemsInCart(newCartItems);
+  };
+
+  const value = {
+    itemsInCart,
+    setItemsInCart,
+    addItemToCart,
+    cartCount,
+    incrementQuantity,
+    decrementQuantity,
+    clearCartItem,
+    cartTotal,
+  };
   return (
     <addItemToCartContext.Provider value={value}>
       {children}
