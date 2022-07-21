@@ -1,0 +1,20 @@
+.category-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
+  row-gap: 50px;
+}
+
+.products-title {
+  text-align: center;
+  text-transform: uppercase;
+  background: linear-gradient(
+    to right,
+    rgba(237, 215, 215, 0.612),
+    rgba(96, 96, 59, 0.456)
+  );
+  height: 3rem;
+  border-radius: 4px;
+  color: rgb(234, 46, 21);
+  margin-bottom: 2rem;
+}

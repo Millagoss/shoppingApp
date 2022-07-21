@@ -3,6 +3,7 @@ import CustomBtn from '../Button/CustomBtn';
 import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
 
 const ProductCard = ({ product }) => {
+  // console.log(product);
   const { id, name, imageUrl, price } = product;
   const { addItemToCart } = useGlobalAddItemToCartContext();
 

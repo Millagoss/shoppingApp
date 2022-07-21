@@ -1,7 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
 import CustomBtn from '../Button/CustomBtn';
-import './cart-dropdown.style.scss';
+
+import {
+  CartDropdownContainer,
+  CartItems,
+  CartItem,
+  ItemDetails,
+} from './cart-dropdown.style';
 
 const CartDropdown = () => {
   const { itemsInCart } = useGlobalAddItemToCartContext();
@@ -13,39 +20,34 @@ const CartDropdown = () => {
 
   if (itemsInCart.length === 0) {
     return (
-      <div className='cart-dropdown-container'>
-        <div
-          className='cart-items'
-          style={{ justifyContent: 'center', alignItems: 'center' }}
-        >
+      <CartDropdownContainer>
+        <CartItems style={{ justifyContent: 'center', alignItems: 'center' }}>
           <h3>cart is empty</h3>
-        </div>
-      </div>
+        </CartItems>
+      </CartDropdownContainer>
     );
   }
 
   return (
-    <div className='cart-dropdown-container'>
-      <div className='cart-items'>
+    <CartDropdownContainer>
+      <CartItems>
         {itemsInCart.map((product) => {
           const { id, imageUrl, price, name, quantity } = product;
           return (
-            <div key={id} className='cart-item-container'>
+            <CartItem>
               <img src={imageUrl} alt={name} />
-              <div className='item-details'>
+              <ItemDetails>
                 <span className='name'>{name}</span>
                 <span className='price'>
                   {quantity} X {price}
                 </span>
-              </div>
-            </div>
+              </ItemDetails>
+            </CartItem>
           );
         })}
-      </div>
-      {/* <Link to='/checkout'> */}
+      </CartItems>
       <CustomBtn onClick={handleClick}>GO TO CHECKOUT</CustomBtn>
-      {/* </Link> */}
-    </div>
+    </CartDropdownContainer>
   );
 };
 

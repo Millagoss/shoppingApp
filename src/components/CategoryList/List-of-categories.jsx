@@ -1,9 +1,9 @@
 import React from 'react';
 import CategoryItemComponent from './CategoryItemComponent';
 
-const CategoriesContainerComponent = ({ categoriesInfo }) => {
+const ListOfCategories = ({ categoriesInfo }) => {
   return (
-    <div className='categories-container'>
+    <div className='list-of-categories-container'>
       {categoriesInfo.map((info) => {
         return <CategoryItemComponent key={info.id} {...info} />;
       })}
@@ -11,4 +11,4 @@ const CategoriesContainerComponent = ({ categoriesInfo }) => {
   );
 };
 
-export default CategoriesContainerComponent;
+export default ListOfCategories;
