@@ -8,6 +8,12 @@ export const NavigationContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+  background: #e6eaecc6;
+  z-index: 1;
+`;
+
+export const FixedNavContainer = styled(NavigationContainer)`
+  position: fixed;
 `;
 
 export const LogoContainer = styled(Link)`

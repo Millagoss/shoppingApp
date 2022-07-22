@@ -34,7 +34,7 @@ const CartDropdown = () => {
         {itemsInCart.map((product) => {
           const { id, imageUrl, price, name, quantity } = product;
           return (
-            <CartItem>
+            <CartItem key={id}>
               <img src={imageUrl} alt={name} />
               <ItemDetails>
                 <span className='name'>{name}</span>
