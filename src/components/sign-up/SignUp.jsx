@@ -6,6 +6,7 @@ import {
 } from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/formInput';
 import CustomBtn from '../Button/CustomBtn';
+import Loading from '../loading/loading.component';
 const formField = {
   displayName: '',
   email: '',
@@ -14,17 +15,18 @@ const formField = {
 };
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [textField, setTextField] = useState(formField);
   const { displayName, email, password, confirmPassword } = textField;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (confirmPassword !== password) {
       alert('password does not match');
       return;
     }
 
+    setIsLoading(true);
     try {
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
@@ -32,6 +34,7 @@ const SignUp = () => {
       );
       await createUserDocument(user, { displayName });
       setTextField(formField);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
       alert(error.code);
@@ -83,7 +86,8 @@ const SignUp = () => {
           onChange={handleOnChange}
           required
         />
-        <CustomBtn type='submit'>Sign up</CustomBtn>
+        <CustomBtn type='submit'>{isLoading ? '' : 'sign up'}</CustomBtn>
+        {isLoading && <Loading />}
       </form>
     </div>
   );

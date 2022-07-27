@@ -31,6 +31,7 @@ const Slider = () => {
       {categoriesInfo.map((item, itemIndex) => {
         return (
           <SingleSlide
+            key={item.id}
             item={item}
             index={index}
             itemIndex={itemIndex}
@@ -38,8 +39,12 @@ const Slider = () => {
           />
         );
       })}
-      <LeftArrow />
-      <RightArrow />
+      <span onClick={() => setIndex(index - 1)}>
+        <LeftArrow />
+      </span>
+      <span onClick={() => setIndex(index + 1)}>
+        <RightArrow />
+      </span>
     </div>
   );
 };

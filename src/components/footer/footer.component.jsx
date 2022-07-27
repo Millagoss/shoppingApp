@@ -6,6 +6,7 @@ import {
   CopyrightContaienr,
   Info,
   Text,
+  DateContainer,
 } from './footer.style';
 
 const FooterComponent = () => {
@@ -27,7 +28,8 @@ const FooterComponent = () => {
         </Text>
       </Info>
       <CopyrightContaienr>
-        <span>&#169;</span>Copyright
+        <span>&#169;</span>Copyright{' '}
+        <DateContainer>{new Date().getFullYear()}</DateContainer>
       </CopyrightContaienr>
     </Footer>
   );

@@ -2,10 +2,13 @@ import React from 'react';
 
 import { RightArrowContainer, LeftArrowContainer } from './arrows.style';
 
+import { ReactComponent as RightArrowIcon } from '../../assets/rightArrow.svg';
+import { ReactComponent as LeftArrowIcon } from '../../assets/leftArrow.svg';
+
 export const RightArrow = () => {
   return (
     <RightArrowContainer>
-      <span>&#8594;</span>
+      <RightArrowIcon className='right-icon' />
     </RightArrowContainer>
   );
 };
@@ -13,7 +16,7 @@ export const RightArrow = () => {
 export const LeftArrow = () => {
   return (
     <LeftArrowContainer>
-      <span>&#8592;</span>
+      <LeftArrowIcon className='left-icon' />
     </LeftArrowContainer>
   );
 };

@@ -17,14 +17,19 @@ import {
   NavigationContainer,
   NavLinks,
   NavLink,
+  Track,
+  Profile,
 } from './navigation.style';
 
 const NavBar = () => {
   const [isGoToTopActive, setIsGoToToActive] = useState(false);
   const { currentUser } = useGlobalUserContextHook();
+  // console.log(currentUser);
   const { isCartDropdownOpen, setIsCartDropdownOpen } =
     useGlobalCartStateContextHook();
+
   const navContainerRef = useRef();
+  const trackerRef = useRef();
 
   const handleScroll = () => {
     if (window.pageYOffset > 100) {
@@ -54,28 +59,69 @@ const NavBar = () => {
     }
   };
 
+  const shiftTracker = (e) => {
+    let positionX = e.target.getBoundingClientRect().x + 20;
+
+    if (navContainerRef.current.style.position === 'fixed') {
+      positionX = e.target.getBoundingClientRect().x - 20;
+    }
+
+    trackerRef.current.style.display = 'block';
+    trackerRef.current.style.left = `${positionX}px`;
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', removeTracker);
+    removeTracker();
+    return () => window.removeEventListener('resize', removeTracker);
+  }, []);
+  const removeTracker = () => {
+    trackerRef.current.style.display = 'none';
+  };
+
+  const profileRef = useRef();
+  const changeProfile = () => {};
+
   return (
     <>
-      <NavigationContainer ref={navContainerRef} onClick={closeDropdown}>
-        <LogoContainer to={'./'}>
+      <NavigationContainer onClick={closeDropdown} ref={navContainerRef}>
+        <LogoContainer onClick={removeTracker} to={'./'}>
           <CrwnLogo className='logo' />
         </LogoContainer>
 
         <NavLinks>
-          <NavLink to='./shop'>Shop</NavLink>
+          <NavLink onClick={shiftTracker} to='./'>
+            Home
+          </NavLink>
+          <NavLink onClick={shiftTracker} to='./shop'>
+            Shop
+          </NavLink>
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>
               SIGN OUT
             </NavLink>
           ) : (
-            <NavLink to='./authentication'>Sign In</NavLink>
+            <NavLink onClick={shiftTracker} to='./authentication'>
+              Sign In
+            </NavLink>
           )}
           <div onClick={() => setIsCartDropdownOpen(!isCartDropdownOpen)}>
             <CartIcon />
           </div>
+          <Profile ref={profileRef} onClick={changeProfile}>
+            {currentUser ? (
+              <img
+                src={currentUser.photoURL}
+                alt={currentUser.displayName.slice(0, 1)}
+              />
+            ) : (
+              <i className='fa-solid fa-user'></i>
+            )}
+          </Profile>
         </NavLinks>
         {isCartDropdownOpen && <CartDropdown />}
       </NavigationContainer>
+      <Track ref={trackerRef} />
       <Outlet />
       <FooterComponent />
       {isGoToTopActive && <GoToTop />}

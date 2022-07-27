@@ -31,7 +31,7 @@ export const Contact = styled.div`
 export const CopyrightContaienr = styled.h4`
   display: flex;
   justify-content: center;
-  margin-bottom: 1;
+  margin: 0 0 2rem 0;
   align-items: center;
 
   span {
@@ -62,4 +62,9 @@ export const Text = styled.div`
     overflow-x: hidden;
     word-wrap: break-word;
   }
+`;
+
+export const DateContainer = styled.span`
+  margin-left: 4px;
+  padding: 5px;
 `;
