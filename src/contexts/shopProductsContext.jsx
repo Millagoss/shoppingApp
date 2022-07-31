@@ -5,7 +5,7 @@ import { getCollectionAndDocument } from '../utils/firebase/firebase.utils';
 const shopProductsContext = React.createContext();
 
 export const ShopProductsContextProvider = ({ children }) => {
-  const [shopProducts, setShopProducts] = useState({});
+  const [shopProducts, setShopProducts] = useState(null);
 
   useEffect(() => {
     setShopProducts([]);
