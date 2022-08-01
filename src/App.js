@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Home from './Pages/Home/Home';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './Pages/Navigation/NavBarComponent';
@@ -6,7 +6,23 @@ import Authentication from './Pages/authentication/authentication.page';
 import Shop from './Pages/shop/shop';
 import CheckOut from './Pages/Checkout/CheckOut';
 
+import {
+  onAuthStateChangedListener,
+  createUserDocument,
+} from './utils/firebase/firebase.utils';
+
 const App = () => {
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChangedListener((user) => {
+  //     if (user) {
+  //       createUserDocument(user);
+  //     }
+  //     // console.log(user);
+  //     setCurrentUser(user);
+  //   });
+  //   return unsubscribe;
+  // }, []);
+
   return (
     <Routes>
       <Route path='/' element={<NavBar />}>

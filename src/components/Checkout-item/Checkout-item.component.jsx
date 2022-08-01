@@ -3,12 +3,12 @@ import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-cont
 import './checkout.component.style.scss';
 const CheckoutItem = ({ product }) => {
   const { id, name, quantity, imageUrl, price } = product;
-  const { incrementQuantity, decrementQuantity, clearCartItem } =
+  const { clearItemFromCart, removeCartItem, addItemToCart } =
     useGlobalAddItemToCartContext();
 
-  const clearItemHandler = () => clearCartItem(product);
-  const incrementHandler = () => incrementQuantity(product);
-  const decrementHandler = () => decrementQuantity(product);
+  const clearItemHandler = () => clearItemFromCart(product);
+  const incrementHandler = () => addItemToCart(product);
+  const decrementHandler = () => removeCartItem(product);
 
   return (
     <div className='checkout-item-container'>
