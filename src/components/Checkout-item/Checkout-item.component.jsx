@@ -1,14 +1,24 @@
 import React from 'react';
-import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import {
+  removeCartItem,
+  clearItemFromCart,
+  addItemToCart,
+} from '../../store/cart/cart.action';
+import { selectCartItems } from '../../store/cart/cart.selector';
 import './checkout.component.style.scss';
+
 const CheckoutItem = ({ product }) => {
   const { id, name, quantity, imageUrl, price } = product;
-  const { clearItemFromCart, removeCartItem, addItemToCart } =
-    useGlobalAddItemToCartContext();
+  const dispatch = useDispatch();
+  const { itemsInCart } = useSelector(selectCartItems);
 
-  const clearItemHandler = () => clearItemFromCart(product);
-  const incrementHandler = () => addItemToCart(product);
-  const decrementHandler = () => removeCartItem(product);
+  const clearItemHandler = () =>
+    dispatch(clearItemFromCart(itemsInCart, product));
+  const incrementHandler = () => dispatch(addItemToCart(itemsInCart, product));
+  const decrementHandler = () => dispatch(removeCartItem(itemsInCart, product));
 
   return (
     <div className='checkout-item-container'>

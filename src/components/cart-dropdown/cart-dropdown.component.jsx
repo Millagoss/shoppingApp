@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
 import CustomBtn from '../Button/CustomBtn';
+import { selectCartItems } from '../../store/cart/cart.selector';
 
 import {
   CartDropdownContainer,
@@ -11,7 +12,7 @@ import {
 } from './cart-dropdown.style';
 
 const CartDropdown = () => {
-  const { itemsInCart } = useGlobalAddItemToCartContext();
+  const { itemsInCart } = useSelector(selectCartItems);
   const navigtion = useNavigate();
 
   const handleClick = () => {

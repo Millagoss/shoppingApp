@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ReactComponent as CrwnLogo } from '../../assets/083 crown.svg';
 
-import { useGlobalUserContextHook } from '../../contexts/userContext';
 import { useGlobalCartStateContextHook } from '../../contexts/cart-dropdown-context';
 
 import { signOutUser } from '../../utils/firebase/firebase.utils';
@@ -11,6 +10,7 @@ import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import FooterComponent from '../../components/footer/footer.component';
 import GoToTop from '../../components/go-to-top/go-to-top.component';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 import {
   LogoContainer,
@@ -20,11 +20,13 @@ import {
   Track,
   Profile,
 } from './navigation.style';
+import { useSelector } from 'react-redux';
 
 const NavBar = () => {
+  const currentUser = useSelector(selectCurrentUser);
+
   const [isGoToTopActive, setIsGoToToActive] = useState(false);
-  const { currentUser } = useGlobalUserContextHook();
-  // console.log(currentUser);
+
   const { isCartDropdownOpen, setIsCartDropdownOpen } =
     useGlobalCartStateContextHook();
 

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useGlobalShopProductsContext } from '../../contexts/shopProductsContext';
+import { useSelector } from 'react-redux';
+import { selectCategoriesMap } from '../../store/shop-products/categories.selector.js';
+
 import CategoriesPreview from '../categories-preview/categories-preview.component';
 import Loading from '../loading/loading.component';
 
 const DisplayCategories = () => {
-  const { shopProducts } = useGlobalShopProductsContext();
-
+  const shopProducts = useSelector(selectCategoriesMap);
   // console.log(shopProducts);
 
   // if (!shopProducts) {

@@ -39,7 +39,7 @@ provider.setCustomParameters({
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
-// userData database
+// database instance
 const db = getFirestore();
 
 // setting items to db
@@ -66,16 +66,12 @@ export const getCollectionAndDocument = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  const categoriesMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
+  console.log(querySnapshot);
 
-    acc[title.toLowerCase()] = items;
-
-    return acc;
-  }, {});
-  return categoriesMap;
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
+// adding user to db
 export const createUserDocument = async (userAuth, additionalInfo = {}) => {
   if (!userAuth) return;
   const { displayName, uid, email } = userAuth;

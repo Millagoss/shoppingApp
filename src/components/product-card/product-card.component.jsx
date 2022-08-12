@@ -1,20 +1,25 @@
 import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import './product-card.scss';
 import CustomBtn from '../Button/CustomBtn';
-import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
 
-import { ReactComponent as CheckLogo } from '../../assets/check.svg';
+import { selectCartItems } from '../../store/cart/cart.selector';
+import { addItemToCart } from '../../store/cart/cart.action';
 
 const ProductCard = ({ product }) => {
-  // console.log(product);
   const [toggleClass, setToggleClass] = useState('');
   const { id, name, imageUrl, price } = product;
-  const { addItemToCart } = useGlobalAddItemToCartContext();
+
+  const { itemsInCart } = useSelector(selectCartItems);
+  const dispatch = useDispatch();
 
   const checkRef = useRef();
 
+  // console.log(itemsInCart);
+
   const handleClick = () => {
-    addItemToCart(product);
+    dispatch(addItemToCart(itemsInCart, product));
     setToggleClass('display');
     setTimeout(() => {
       setToggleClass('');

@@ -1,17 +1,20 @@
-export const ACTIONS = {
-  SET_CART_ITEMS: 'SET_CART_ITEMS',
+import { createAction } from '../../utils/reducer/reducer.utils';
+import { CART_ACTION_TYPES } from './cart.types';
+
+export const addItemToCart = (itemsInCart, productToAdd) => {
+  const newCartItems = addCartItem(itemsInCart, productToAdd);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
-// REDUCER
-export const cartReducer = (state, { type, payload }) => {
-  if (type === ACTIONS.SET_CART_ITEMS) {
-    // console.log('hello');
-    return { ...state, ...payload };
-  }
-
-  throw new Error(`unhandled type ${type}`);
+export const removeCartItem = (itemsInCart, productToRemove) => {
+  const newCartItems = removeCartItemFromCart(itemsInCart, productToRemove);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
-// END OF REDUCER
+
+export const clearItemFromCart = (itemsInCart, productToClear) => {
+  const newCartItems = clearCartItem(itemsInCart, productToClear);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+};
 
 // FUNCIONS
 export const addCartItem = (cartItems, productToAdd) => {
@@ -51,4 +54,3 @@ export const removeCartItemFromCart = (cartItems, cartItemToRemove) => {
 export const clearCartItem = (cartItems, cartItemToClear) => {
   return cartItems.filter((product) => product.id !== cartItemToClear.id);
 };
-// END OF FUNCTIONS

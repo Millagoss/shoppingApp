@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import Home from './Pages/Home/Home';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './Pages/Navigation/NavBarComponent';
 import Authentication from './Pages/authentication/authentication.page';
 import Shop from './Pages/shop/shop';
 import CheckOut from './Pages/Checkout/CheckOut';
+import { setCurrentUser } from './store/user/user.action';
 
 import {
   onAuthStateChangedListener,
@@ -12,16 +15,17 @@ import {
 } from './utils/firebase/firebase.utils';
 
 const App = () => {
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChangedListener((user) => {
-  //     if (user) {
-  //       createUserDocument(user);
-  //     }
-  //     // console.log(user);
-  //     setCurrentUser(user);
-  //   });
-  //   return unsubscribe;
-  // }, []);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocument(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <Routes>

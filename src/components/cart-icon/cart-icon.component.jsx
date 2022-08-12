@@ -1,10 +1,12 @@
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
-import { useGlobalAddItemToCartContext } from '../../contexts/add-cart-item-context';
+import { useSelector } from 'react-redux';
+
+import { selectCartCount } from '../../store/cart/cart.selector';
 
 import './cart-icon.style.scss';
 
 const CartIcon = () => {
-  const { cartCount } = useGlobalAddItemToCartContext();
+  const cartCount = useSelector(selectCartCount);
 
   return (
     <div className='cart-icon-container'>
