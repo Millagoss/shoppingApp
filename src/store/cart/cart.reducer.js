@@ -11,6 +11,10 @@ export const cartReducer = (state = INITIAL_CART_STATE, action = {}) => {
     // console.log('hello');
     return { ...state, itemsInCart: payload };
   }
+  if (type === CART_ACTION_TYPES.EMPTY_CART_ITEMS) {
+    // console.log('hello');
+    return { ...state, itemsInCart: payload };
+  }
 
   return state;
 };

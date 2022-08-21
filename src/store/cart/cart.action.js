@@ -16,6 +16,10 @@ export const clearItemFromCart = (itemsInCart, productToClear) => {
   return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
+export const emptyCart = () => {
+  return createAction(CART_ACTION_TYPES.EMPTY_CART_ITEMS, []);
+};
+
 // FUNCIONS
 export const addCartItem = (cartItems, productToAdd) => {
   const doesItemExist = cartItems.find((item) => {

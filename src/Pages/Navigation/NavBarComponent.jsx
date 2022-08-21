@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ReactComponent as CrwnLogo } from '../../assets/083 crown.svg';
+import { dispatch, useDispatch } from 'react-redux';
 
 import { useGlobalCartStateContextHook } from '../../contexts/cart-dropdown-context';
 
@@ -11,6 +12,7 @@ import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component
 import FooterComponent from '../../components/footer/footer.component';
 import GoToTop from '../../components/go-to-top/go-to-top.component';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { emptyCart } from '../../store/cart/cart.action';
 
 import {
   LogoContainer,
@@ -24,7 +26,7 @@ import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const currentUser = useSelector(selectCurrentUser);
-
+  const dispatch = useDispatch();
   const [isGoToTopActive, setIsGoToToActive] = useState(false);
 
   const { isCartDropdownOpen, setIsCartDropdownOpen } =
@@ -81,6 +83,11 @@ const NavBar = () => {
     trackerRef.current.style.display = 'none';
   };
 
+  const handleSignOut = () => {
+    dispatch(emptyCart());
+    signOutUser();
+  };
+
   const profileRef = useRef();
   const changeProfile = () => {};
 
@@ -99,7 +106,7 @@ const NavBar = () => {
             Shop
           </NavLink>
           {currentUser ? (
-            <NavLink as='span' onClick={signOutUser}>
+            <NavLink as='span' onClick={handleSignOut}>
               SIGN OUT
             </NavLink>
           ) : (
@@ -114,7 +121,7 @@ const NavBar = () => {
             {currentUser ? (
               <img
                 src={currentUser.photoURL}
-                alt={currentUser.displayName.slice(0, 1)}
+                // alt={currentUser.displayName.slice(0, 1)}
               />
             ) : (
               <i className='fa-solid fa-user'></i>

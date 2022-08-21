@@ -1,14 +1,12 @@
 import React from 'react';
 
-import spinner from '../../assets/6.gif';
-
-import { Spinner } from './loading.style';
+import { SpinnerContainer, SpinnerOverlay } from './loading.style';
 
 const Loading = () => {
   return (
-    <Spinner>
-      <img src={spinner} alt='loading..' />;
-    </Spinner>
+    <SpinnerOverlay>
+      <SpinnerContainer />
+    </SpinnerOverlay>
   );
 };
 
