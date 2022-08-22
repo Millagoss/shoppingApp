@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './sign-in-component.scss';
 import CustomBtn from '../Button/CustomBtn';
 import FormInput from '../form-input/formInput';
+
 import {
-  signInAuthUserWithEmailAndPassword,
-  signInWithGooglePopup,
-} from '../../utils/firebase/firebase.utils';
+  googleSignInStart,
+  emailSignInStart,
+} from '../../store/user/user.action';
 
 const formField = {
   email: '',
@@ -15,15 +17,13 @@ const formField = {
 const SignInComponent = () => {
   const [textField, setTextField] = useState(formField);
   const { email, password } = textField;
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      dispatch(emailSignInStart(email, password));
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password':
@@ -47,7 +47,7 @@ const SignInComponent = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    dispatch(googleSignInStart());
   };
   return (
     <div className='sign-up-container' style={{ width: '28rem' }}>

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './sign-up-form.scss';
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocument,
-} from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/formInput';
 import CustomBtn from '../Button/CustomBtn';
-import Loading from '../loading/loading.component';
+import { signUpStart } from '../../store/user/user.action';
+
 const formField = {
   displayName: '',
   email: '',
@@ -17,6 +15,7 @@ const formField = {
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [textField, setTextField] = useState(formField);
+  const dispatch = useDispatch();
   const { displayName, email, password, confirmPassword } = textField;
 
   const handleSubmit = async (e) => {
@@ -28,15 +27,12 @@ const SignUp = () => {
 
     setIsLoading(true);
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserDocument(user, { displayName });
+      dispatch(signUpStart(email, password, displayName));
       setTextField(formField);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      setIsLoading(false);
       alert(error.code);
     }
   };
@@ -86,8 +82,9 @@ const SignUp = () => {
           onChange={handleOnChange}
           required
         />
-        <CustomBtn type='submit'>{isLoading ? '' : 'sign up'}</CustomBtn>
-        {isLoading && <Loading />}
+        <CustomBtn type='submit' isLoading={isLoading}>
+          sign up
+        </CustomBtn>
       </form>
     </div>
   );

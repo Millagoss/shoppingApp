@@ -66,7 +66,7 @@ export const getCollectionAndDocument = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  console.log(querySnapshot);
+  // console.log(querySnapshot);
 
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
@@ -92,7 +92,7 @@ export const createUserDocument = async (userAuth, additionalInfo = {}) => {
       console.log('user not added', error);
     }
   }
-  return docRef;
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -111,3 +111,16 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};

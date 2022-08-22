@@ -7,24 +7,14 @@ import NavBar from './Pages/Navigation/NavBarComponent';
 import Authentication from './Pages/authentication/authentication.page';
 import Shop from './Pages/shop/shop';
 import CheckOut from './Pages/Checkout/CheckOut';
-import { setCurrentUser } from './store/user/user.action';
 
-import {
-  onAuthStateChangedListener,
-  createUserDocument,
-} from './utils/firebase/firebase.utils';
+import { checkUserSession } from './store/user/user.action';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocument(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-    return unsubscribe;
+    dispatch(checkUserSession());
   }, []);
 
   return (

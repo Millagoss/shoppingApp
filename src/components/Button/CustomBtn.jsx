@@ -5,13 +5,13 @@ const buttonTypes = {
   google: 'google-sign-in',
   inverted: 'inverted',
 };
-const CustomBtn = ({ children, buttonType, ...otherProps }) => {
+const CustomBtn = ({ children, buttonType, isLoading, ...otherProps }) => {
   return (
     <button
       className={`button-container ${buttonTypes[buttonType]}`}
       {...otherProps}
     >
-      {children}
+      {isLoading ? '...' : children}
     </button>
   );
 };

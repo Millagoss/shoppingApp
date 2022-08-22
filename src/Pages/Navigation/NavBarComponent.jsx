@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ReactComponent as CrwnLogo } from '../../assets/083 crown.svg';
-import { dispatch, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { useGlobalCartStateContextHook } from '../../contexts/cart-dropdown-context';
 
@@ -13,6 +13,8 @@ import FooterComponent from '../../components/footer/footer.component';
 import GoToTop from '../../components/go-to-top/go-to-top.component';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { emptyCart } from '../../store/cart/cart.action';
+
+import { signOutStart } from '../../store/user/user.action';
 
 import {
   LogoContainer,
@@ -26,6 +28,7 @@ import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const currentUser = useSelector(selectCurrentUser);
+  // console.log(currentUser);
   const dispatch = useDispatch();
   const [isGoToTopActive, setIsGoToToActive] = useState(false);
 
@@ -84,8 +87,8 @@ const NavBar = () => {
   };
 
   const handleSignOut = () => {
+    dispatch(signOutStart());
     dispatch(emptyCart());
-    signOutUser();
   };
 
   const profileRef = useRef();
