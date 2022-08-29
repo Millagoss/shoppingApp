@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './sign-in-component.scss';
 import CustomBtn from '../Button/CustomBtn';
 import FormInput from '../form-input/formInput';
@@ -8,6 +8,8 @@ import {
   googleSignInStart,
   emailSignInStart,
 } from '../../store/user/user.action';
+import { selectErrorCode } from '../../store/user/user.selector';
+import { useEffect } from 'react';
 
 const formField = {
   email: '',
@@ -17,7 +19,18 @@ const formField = {
 const SignInComponent = () => {
   const [textField, setTextField] = useState(formField);
   const { email, password } = textField;
+  const [showErrorCode, setShowErrorCode] = useState(false);
+
+  const errorCode = useSelector(selectErrorCode);
+  console.log(errorCode.errorCode);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setShowErrorCode(true);
+    setTimeout(() => {
+      setShowErrorCode(false);
+    }, 4000);
+  }, [errorCode]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,18 +38,7 @@ const SignInComponent = () => {
     try {
       dispatch(emailSignInStart(email, password));
     } catch (error) {
-      switch (error.code) {
-        case 'auth/wrong-password':
-          alert('incorrect password');
-          break;
-        case 'auth/user-not-found':
-          alert('no user found associated with this email');
-          break;
-
-        default:
-          console.log(error);
-          break;
-      }
+      alert(error);
     }
   };
 
@@ -53,6 +55,7 @@ const SignInComponent = () => {
     <div className='sign-up-container' style={{ width: '28rem' }}>
       <h2>I already have an account</h2>
       <span>Sign in with your email and password</span>
+      {showErrorCode && <h5 className='error-code'>{errorCode.errorCode}</h5>}
       <form onSubmit={handleSubmit}>
         <FormInput
           label='email'

@@ -49,9 +49,11 @@ export function* signInWithEmail({ payload: { email, password } }) {
       email,
       password
     );
+    yield put(signInFailed(''));
     yield call(getSnapshotFromUserAuth, user);
   } catch (error) {
-    yield put(signInFailed(error));
+    // console.log(error.code);
+    yield put(signInFailed(error.code));
   }
 }
 

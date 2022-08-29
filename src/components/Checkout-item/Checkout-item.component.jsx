@@ -8,6 +8,7 @@ import {
   addItemToCart,
 } from '../../store/cart/cart.action';
 import { selectCartItems } from '../../store/cart/cart.selector';
+
 import './checkout.component.style.scss';
 
 const CheckoutItem = ({ product }) => {

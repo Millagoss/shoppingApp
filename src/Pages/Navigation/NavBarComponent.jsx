@@ -5,8 +5,6 @@ import { useDispatch } from 'react-redux';
 
 import { useGlobalCartStateContextHook } from '../../contexts/cart-dropdown-context';
 
-import { signOutUser } from '../../utils/firebase/firebase.utils';
-
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import FooterComponent from '../../components/footer/footer.component';
@@ -28,8 +26,8 @@ import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const currentUser = useSelector(selectCurrentUser);
-  // console.log(currentUser);
   const dispatch = useDispatch();
+
   const [isGoToTopActive, setIsGoToToActive] = useState(false);
 
   const { isCartDropdownOpen, setIsCartDropdownOpen } =

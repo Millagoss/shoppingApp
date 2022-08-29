@@ -4,6 +4,7 @@ const INITIAL_USER_STATE = {
   currentUser: null,
   isLoading: false,
   error: null,
+  showErrorCode: false,
 };
 
 export const userReducer = (state = INITIAL_USER_STATE, { type, payload }) => {
@@ -15,7 +16,9 @@ export const userReducer = (state = INITIAL_USER_STATE, { type, payload }) => {
     case USER_ACTION_TYPES.SIGN_UP_FAILED:
     case USER_ACTION_TYPES.SIGN_OUT_FAILED:
     case USER_ACTION_TYPES.SIGN_IN_FAILED:
-      return { ...state, error: payload };
+      return { ...state, error: payload.slice(5, payload.length) };
+    case 'SET_ERROR_CODE':
+      return { ...state, showErrorCode: payload };
 
     default:
       return state;

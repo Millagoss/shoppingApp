@@ -1,7 +1,6 @@
 import React from 'react';
-import Loading from '../loading/loading.component';
 import './button.scss';
-const buttonTypes = {
+export const buttonTypes = {
   google: 'google-sign-in',
   inverted: 'inverted',
 };
